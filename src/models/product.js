@@ -12,12 +12,17 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+  },
     type: {
       type: DataTypes.ENUM("percussion", "wind", "electrophones", "idiophones"),
       allowNull: false,
     },
     photos: {
       type: DataTypes.ARRAY(DataTypes.BLOB('long')),
+      allowNull: false
     },
     new: {  // condition
         type: DataTypes.BOOLEAN,
@@ -42,8 +47,5 @@ module.exports = (sequelize) => {
     color: {
         type: DataTypes.STRING
     },
-    comments: {
-        type: DataTypes.TEXT
-    }
   });
 };
