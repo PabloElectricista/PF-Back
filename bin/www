@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
- require('dotenv').config();
+require('dotenv').config();
+require('../src/database')
 var app = require('../src/app');
 var debug = require('debug')('api:server');
 var http = require('http');
-const { conn } = require('../src/database')
 
 /**
  * Get port from environment and store in Express.
@@ -27,9 +27,7 @@ var server = http.createServer(app);
  */
 
 try {
-  conn.sync({ force: false }).then(() => {
-    server.listen(port, onListening);
-  })
+  server.listen(port, onListening);
 } catch (error) {
   onError(error)
 }
