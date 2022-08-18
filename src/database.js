@@ -1,8 +1,15 @@
 require('dotenv').config();
-const mongooose = require('mongoose');
+const mongoose = require('mongoose');
+
+const URL = process.env.MONGODB_URI;
 try {
-  const db = mongooose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-  console.log("Database is connected to", db.connection.name);
+    (async () => {
+        const db = await mongoose.connect(URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("Database is connected to", db.connection.name);
+    })();
 } catch (error) {
-  console.log(error);
+    console.log(error.message);
 }
