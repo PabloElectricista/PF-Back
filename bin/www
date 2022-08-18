@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
- require('dotenv').config();
+require('dotenv').config();
+require('../src/database')
 var app = require('../src/app');
 var debug = require('debug')('api:server');
 var http = require('http');
-const { conn } = require('../src/database')
 
 /**
  * Get port from environment and store in Express.
