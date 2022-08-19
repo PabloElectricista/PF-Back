@@ -27,9 +27,7 @@ var server = http.createServer(app);
  */
 
 try {
-  conn.sync({ force: false }).then(() => {
-    server.listen(port, onListening);
-  })
+  server.listen(port, onListening);
 } catch (error) {
   onError(error)
 }
