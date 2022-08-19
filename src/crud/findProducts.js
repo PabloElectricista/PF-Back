@@ -1,13 +1,12 @@
 const Products = require('../models/Products')
+//const currentProducts=new Products;
 
-async function findProductsByName(name){
-    const foundProducts=await Products.find({name}) 
-    return foundProducts;
-}
+
 async function findProducts(property){
-    console.log(property)
-    const foundProducts=await Products.find(property) 
-    console.log("Desde searchProducts")
+    const foundProducts=await Products.find(property);
+    //await currentProducts.collection.bulkWrite(foundProducts)
+   // console.log(foundProducts)
+
     return foundProducts;
 }
-module.exports={findProductsByName,findProducts}
+module.exports={findProducts}
