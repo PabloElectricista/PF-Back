@@ -8,8 +8,7 @@ exports.fillDatabase = async () => {
         if (count > 0) return
         
         await Product.insertMany(data)
-    
-    
+        
     } catch (error) {
         console.log(error.message);
     }
