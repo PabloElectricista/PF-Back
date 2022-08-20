@@ -21,7 +21,7 @@ const ProductSchema = new mongoose.Schema(
         location:
         { type: String },
         status:
-        { type: String, default: "new"}
+        { type: String, default: "New"}
        
     },
     { timestamps: true },
