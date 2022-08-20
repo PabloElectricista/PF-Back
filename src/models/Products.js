@@ -17,7 +17,11 @@ const ProductSchema = new mongoose.Schema(
         stock:
         {type: Number, default: 0},
         brand:
-        {type: String, required: true}
+        {type: String, required: true},
+        location:
+        { type: String },
+        status:
+        { type: String, default: "New",enum:["New","Used"] }
        
     },
     { timestamps: true },
