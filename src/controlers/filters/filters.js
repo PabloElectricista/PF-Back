@@ -31,6 +31,7 @@ async function filterProductsByBrand(req,res){
         res.status(404).send({ error: error.message });
     }
 }
+
 async function filterProductsByRangePrice(req,res){
     try{
         let {min,max}=req.query;
@@ -39,9 +40,10 @@ async function filterProductsByRangePrice(req,res){
         currentProducts=currentProducts.length?currentProducts.filter(p=>p.price>=min&&p.price<=max):await Products.find({"price":{
             $lte:max,
             $gte:min
-        }})
+        }
+    })
         res.send(currentProducts)
-    }catch(error){
+    }catch (error) {
         console.log(error);
         res.status(404).send({ error: error.message });
     }

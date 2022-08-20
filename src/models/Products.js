@@ -24,8 +24,12 @@ const ProductSchema = new mongoose.Schema(
         { type: String, default: "New"}
        
     },
-    { timestamps: true },
-    
+    { timestamps: true,
+      versionKey: false
+    }    
 );
 
+
+
 module.exports=mongoose.model('Product', ProductSchema)
+

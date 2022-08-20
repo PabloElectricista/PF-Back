@@ -8,4 +8,5 @@ router.get("/price",filterProductsByRangePrice);
 router.get("/status/:status",filterProductsByStatus);
 router.get("/location/:location",filterByLocation)
 
-module.exports=router;
+module.exports = router;
+
