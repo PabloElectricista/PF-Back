@@ -31,15 +31,17 @@ async function filterProductsByBrand(req,res){
         res.status(404).send({ error: error.message });
     }
 }
-async function filterProductsByRangePrice(req,res){
-    try{
-        const {min,max}=req.query;
-        currentProducts=currentProducts.length?currentProducts.filter(p=>p.price>=min&&price<=max):await Products.find({"price":{
-            $lte:max||1000,
-            $gte:min||0
-        }})
+async function filterProductsByRangePrice(req, res) {
+    try {
+        const { min, max } = req.query;
+        currentProducts = currentProducts.length ? currentProducts.filter(p => p.price >= min && price <= max) : await Products.find({
+            "price": {
+                $lte: max || 1000,
+                $gte: min || 0
+            }
+        })
         res.send(currentProducts)
-    }catch(error){
+    } catch (error) {
         console.log(error);
         res.status(404).send({ error: error.message });
     }
