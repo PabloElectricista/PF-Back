@@ -12,5 +12,4 @@ router.use('/users', usersRoutes);
 
 /* filters routes */
 router.use('/filters', filtersRoutes);
-
 module.exports = router;
