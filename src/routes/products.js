@@ -4,16 +4,16 @@ const getProduct = require('../controlers/products/getProduct');
 const addProduct = require('../controlers/products/addProduct');
 const updateProduct = require('../controlers/products/updateProduct');
 const deleteProduct = require('../controlers/products/deleteProduct');
-const { verifyTokenAndAuthorization} = require("../controlers/users/verifyToken")
+// const { verifyTokenAndAuthorization} = require("../controlers/users/verifyToken")
 
 router.get('/', getProducts)
 
 router.get('/:id', getProduct)
 
-router.post('/', verifyTokenAndAuthorization, addProduct)
+router.post('/', /* verifyTokenAndAuthorization, */ addProduct)
 
-router.put('/:id', verifyTokenAndAuthorization, updateProduct)
+router.put('/:id', /* verifyTokenAndAuthorization, */ updateProduct)
 
-router.delete('/:id', verifyTokenAndAuthorization, deleteProduct)
+router.delete('/:id', /* verifyTokenAndAuthorization, */ deleteProduct)
 
 module.exports =  router
