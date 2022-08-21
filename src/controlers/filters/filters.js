@@ -1,74 +1,26 @@
 const Products = require('../../models/Products')
-let currentProducts=[];
-async function filterProductsByName(req,res){
-    try{
-        const{name}=req.params;
-        const nameRegExp=new RegExp(name,"i")
-        currentProducts=currentProducts.length?currentProducts.filter(p=>nameRegExp.test(p.name)):await Products.find({name:nameRegExp})
-        res.status(200).send(currentProducts)
-    }catch(error){
-        console.log(error);
-        res.status(404).send({ error: error.message });
-    }
-}
-async function filterProductsByColor(req,res){
-    try{
-        const{color}=req.params;
-        currentProducts=currentProducts.length?currentProducts.filter(p=>p.color===color):await Products.find({color})
-        res.status(200).send(currentProducts)
-    }catch(error){
-        console.log(error);
-        res.status(404).send({ error: error.message });
-    }
-}
-async function filterProductsByBrand(req,res){
-    try{
-        const{brand}=req.params;
-        currentProducts=currentProducts.length?currentProducts.filter(p=>p.brand===brand):await Products.find({brand})
-        res.status(200).send(currentProducts)
-    }catch(error){
-        console.log(error);
-        res.status(404).send({ error: error.message });
-    }
-}
 
-async function filterProductsByRangePrice(req,res){
+async function filterProducts(req,res){
+    let condition={}
     try{
-        let {min,max}=req.query;
-        min=min?min:0;
-        max=max?max:1000;
-        currentProducts=currentProducts.length?currentProducts.filter(p=>p.price>=min&&p.price<=max):await Products.find({"price":{
-            $lte:max,
-            $gte:min
+        for(const prop in req.query){
+            if(prop==="price"){
+                let [min,max]=req.query[prop].split('/') //price?min/max desde el front
+                condition[prop]={
+                    $lte: parseInt(max),
+                    $gte:parseInt(min)
+                }
+            }else{
+                condition[prop]=new RegExp(req.query[prop],"i")
+
+            }
         }
-    })
-        res.send(currentProducts)
-    }catch (error) {
-        console.log(error);
-        res.status(404).send({ error: error.message });
-    }
-}
-async function filterProductsByStatus(req,res){
-    try{
-        const{status}=req.params;
-        console.log(status)
-        currentProducts=currentProducts.length?currentProducts.filter(p=>p.status===status):await Products.find({status})
-        res.status(200).send(currentProducts)
+        const foundProducts=await Products.find(condition)
+        res.send(foundProducts)
+        
     }catch(error){
         console.log(error);
         res.status(404).send({ error: error.message });
     }
 }
-async function filterByLocation(req,res){
-    // location
-    try{
-        const{location}=req.params;
-        const locationRegExp=new RegExp(location,"i")
-        currentProducts=currentProducts.length?currentProducts.filter(p=>locationRegExp.test(p.location)):await Products.find({location:locationRegExp})
-        res.status(200).send(currentProducts)
-    }catch(error){
-        console.log(error);
-        res.status(404).send({ error: error.message });
-    }    
-}
-module.exports={filterProductsByName,filterProductsByColor,filterProductsByBrand,filterProductsByRangePrice,filterProductsByStatus,filterByLocation}
+module.exports={filterProducts}
