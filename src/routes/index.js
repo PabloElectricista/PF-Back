@@ -6,6 +6,8 @@ const usersRoutes = require('./users');
 
 const filtersRoutes = require('./filters')
 
+router.get('/', (req, res)=> res.send('Hello')
+
 /* products routes */
 router.use('/products', productsRoutes);
 
