@@ -10,8 +10,6 @@ const ProductSchema = new mongoose.Schema(
         [{ type: String, required: true }],
         categorie: 
         { type: String, required: true },
-        img: 
-        { type: String, required: true },
         color: 
         { type: String, required: true },
         price: 
