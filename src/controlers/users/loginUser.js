@@ -2,45 +2,38 @@ const User = require("../../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
-const loginUser = ('/login', async (req, res) => {
-    try{
-        const user = await User.findOne(
-            {
-                userName: req.body.user_name
-            }
-        );
 
-        !user && res.status(401).json("Wrong User Name");
+const loginUser = ('/login', async (req, res) => {
+    const { username, password } = req.body
+
+    if (!username || !password) {
+        return res.status(402).send("Missing username and/or password")
+    }
+    try {
+        const user = await User.findOne({ username });
+        if (!user) return res.status(401).json("Wrong User Name");
 
         const hashedPassword = CryptoJS.AES.decrypt(
             user.password,
             process.env.PASS_SEC
         );
-
-
         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+        if (originalPassword != password) return res.status(401).json("Wrong Password");
 
-        const inputPassword = req.body.password;
-        
-        originalPassword != inputPassword && 
-            res.status(401).json("Wrong Password");
-
-        const accessToken = jwt.sign(
-        {
-            id: user._id,
-            isAdmin: user.isAdmin,
-        },
-        process.env.JWT_SEC,
-            {expiresIn:"3d"}
+        const accessToken = await jwt.sign(
+            {
+                id: user._id,
+                isAdmin: user.isAdmin,
+            },
+            process.env.JWT_SEC,
+            { expiresIn: "3d" }
         );
-  
-        const { password, ...others } = user._doc;  
-        res.status(200).json({...others, accessToken});
+        
+        res.status(200).json({accessToken});
 
-    }catch(err){
+    } catch (err) {
         res.status(500).json(err);
     }
-
 });
 
 module.exports = loginUser;

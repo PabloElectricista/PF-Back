@@ -6,6 +6,9 @@ const ProductSchema = new mongoose.Schema(
         { type: String, required: true, unique: true },
         description:
         { type: String, required: true },
+        image: 
+        [{ type: String, required: true }],
+        categorie: 
         img: 
         { type: String, required: true },
         category: 
@@ -17,10 +20,16 @@ const ProductSchema = new mongoose.Schema(
         stock:
         {type: Number, default: 0},
         brand:
-        {type: String, required: true}
+        {type: String, required: true},
+        location:
+        { type: String },
+        status:
+        { type: String, default: "New"}
        
     },
-    { timestamps: true }
+    { timestamps: true,
+      versionKey: false
+    }    
 );
 
 module.exports=mongoose.model('Product', ProductSchema)
