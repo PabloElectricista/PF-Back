@@ -6,7 +6,7 @@ const usersRoutes = require('./users');
 
 const filtersRoutes = require('./filters')
 
-const stripeCheckoutRoutes = require('./stripeCheckout')
+const stripeCheckoutRoutes = require('./stripe')
 
 router.get('/', (req, res)=> res.send('Hello')
 
