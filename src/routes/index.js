@@ -6,7 +6,7 @@ const usersRoutes = require('./users');
 
 const filtersRoutes = require('./filters')
 
-const stripeCheckoutRoutes = require('./stripeCheckout')
+const stripeRoutes = require('./stripe')
 
 router.get('/', (req, res)=> res.send('Hello')
 
@@ -20,6 +20,6 @@ router.use('/users', usersRoutes);
 router.use('/filter',filtersRoutes)
 
 /* stripe checkout routes */
-router.use('/api', stripeCheckoutRoutes)
+router.use('/api', stripeRoutes)
 
 module.exports = router;
