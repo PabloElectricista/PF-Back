@@ -5,7 +5,6 @@ const deleteProduct = async (req, res) => {
         await Product.findOneAndDelete({ _id: req.params.id });
         res.send('eliminando el producto con id: ' + req.params.id)
     } catch (error) {
-        console.log(error.message);
         res.status(500).send('error al eliminar el producto')
     }
 }
