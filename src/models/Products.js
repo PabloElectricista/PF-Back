@@ -10,6 +10,8 @@ const ProductSchema = new mongoose.Schema(
         [{ type: String, required: true }],
         category: 
         [{ type: String, required: true }],
+        categorie: 
+        { type: String, required: true },
         color: 
         { type: String, required: true },
         price: 
@@ -22,7 +24,6 @@ const ProductSchema = new mongoose.Schema(
         { type: String },
         status:
         { type: String, default: "New"}
-       
     },
     { timestamps: true,
       versionKey: false
