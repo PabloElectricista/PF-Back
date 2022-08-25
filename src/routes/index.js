@@ -15,7 +15,10 @@ router.use('/products', productsRoutes);
 router.use('/users', usersRoutes);
 
 /* filters routes*/
-router.use('/filter',filtersRoutes)
+router.use('/filter',filtersRoutes);
+
+/* orders routes*/
+router.use('/orders',orderRoutes)
 
 /* post images in Cloudinary*/
 router.use('/img',imagesRoutes)
