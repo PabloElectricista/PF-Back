@@ -1,8 +1,8 @@
-const Orders = require("../../models/Order");
+const Order = require("../../models/Order");
 
 const updateOrder = async (req, res, ) => {
     try {
-        const updatedOrder = await Orders.findByIdAndUpdate(
+        const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id,
             req.body,
             {

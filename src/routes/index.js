@@ -6,6 +6,8 @@ const imagesRoutes = require('./images')
 const stripeRoutes = require('./stripe')
 const orderRoutes = require('./order')
 
+const reviewsRoutes = require('./reviews')
+
 router.get('/', (req, res)=> res.send('Hello'))
 
 
@@ -19,7 +21,11 @@ router.use('/users', usersRoutes);
 router.use('/filter', filtersRoutes);
 
 /* orders routes*/
-router.use('/orders', orderRoutes)
+
+router.use('/orders',orderRoutes);
+
+/* reviews routes*/
+router.use('/reviews',reviewsRoutes)
 
 /* post images in Cloudinary*/
 router.use('/img', imagesRoutes)
@@ -27,7 +33,5 @@ router.use('/img', imagesRoutes)
 /* stripe checkout routes */
 router.use('/api', stripeRoutes)
 
-/*post images in Cloudinary*/
-router.use('/img', imagesRoutes)
 
 module.exports = router;
