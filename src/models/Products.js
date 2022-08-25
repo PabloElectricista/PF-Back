@@ -6,12 +6,9 @@ const ProductSchema = new mongoose.Schema(
         { type: String, required: true, unique: true },
         description:
         { type: String, required: true },
-        image: 
-        [{ type: String, required: true }],
-        categorie: 
         img: 
         { type: String, required: true },
-        category: 
+        categorie: 
         { type: Array},
         color: 
         { type: String, required: true },
@@ -25,7 +22,6 @@ const ProductSchema = new mongoose.Schema(
         { type: String },
         status:
         { type: String, default: "New"}
-       
     },
     { timestamps: true,
       versionKey: false

@@ -7,7 +7,7 @@ async function filterProducts(req,res){
             if(prop==="price"){
                 let [min,max]=req.query[prop].split('/') //price?min/max desde el front
                 condition[prop]={
-                    $lte: parseInt(max),
+                    $lte:parseInt(max),
                     $gte:parseInt(min)
                 }
             }else{
