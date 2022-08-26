@@ -2,6 +2,7 @@ const Order = require("../../models/Order");
 
 const deleteOrder = async (req, res) => {
     try {
+        // uddateSales(req.params.sellerid)   // próximo paso
         await Order.findOneAndDelete({ _id: req.params.id });
         res.send('eliminando la orden con id: ' + req.params.id)
     } catch (error) {

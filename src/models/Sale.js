@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
 
 const saleSchema = new Schema({
+    _id:
+        { type: Schema.Types.ObjectId },
     onsales:
         [{ type: Schema.Types.ObjectId, ref: "products" }],
     waiting:

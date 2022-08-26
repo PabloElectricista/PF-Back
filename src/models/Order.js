@@ -4,7 +4,7 @@ const OrderSchema = new Schema(
     {
         user:       //  buyer
             { type: Schema.Types.ObjectId, ref: "User", required: true },
-        products: [     
+        products: [
             {
                 products:
                     { type: Schema.Types.ObjectId, ref: "Product" },
@@ -13,9 +13,11 @@ const OrderSchema = new Schema(
             },
         ],
         status:
-            { type: string, default: "pending"},
+            { type: String, default: "pending" },
         payment:
-            { type: string }
+            { type: String },
+        seller:
+            { type: Schema.Types.ObjectId, ref: "User", required: true }
     },
     { timestamps: true }
 );

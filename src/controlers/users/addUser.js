@@ -1,6 +1,8 @@
 const User = require("../../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const Sale = require('../../models/Sale')
 
 const addUser = (async (req, res) => {
     const newUser = new User({
@@ -11,7 +13,7 @@ const addUser = (async (req, res) => {
         process.env.PASS_SEC
       ).toString(),
     });
-  
+    
     try {
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
