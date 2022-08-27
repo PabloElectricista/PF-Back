@@ -4,12 +4,15 @@ const usersRoutes = require('./users');
 const filtersRoutes = require('./filters')
 const imagesRoutes = require('./images')
 const stripeRoutes = require('./stripe')
+
+const notificationsRouter=require('./notifications')
+
 const orderRoutes = require('./order')
 
 const reviewsRoutes = require('./reviews')
 
-router.get('/', (req, res)=> res.send('Hello'))
 
+router.get('/', (req, res)=> res.send('Hello'))
 
 /* products routes */
 router.use('/products', productsRoutes);
@@ -32,6 +35,8 @@ router.use('/img', imagesRoutes)
 
 /* stripe checkout routes */
 router.use('/api', stripeRoutes)
+
+router.use('/send-notification',notificationsRouter)
 
 
 module.exports = router;
