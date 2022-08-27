@@ -25,6 +25,8 @@ const UserSchema = new Schema(
             [{ type: Schema.Types.ObjectId, ref: "Sale" }],
         purchases:
             [{ type: Schema.Types.ObjectId, ref: "Order" }],
+        orders:
+            [{ type: Schema.Types.ObjectId, ref: "Order" }],
         posts:      //  comments or answers
             [{ type: Schema.Types.ObjectId, ref: "Post" }]
     },

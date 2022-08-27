@@ -14,6 +14,8 @@ const OrderSchema = new Schema(
         ],
         status:
             { type: String, default: "pending" },
+        userseller:
+            { type: Schema.Types.ObjectId, ref: "User", required: true },
         payment:
             { type: String }
     },
