@@ -4,10 +4,15 @@ const usersRoutes = require('./users');
 const filtersRoutes = require('./filters')
 const imagesRoutes = require('./images')
 const stripeRoutes = require('./stripe')
+
+const notificationsRouter=require('./notifications')
+
 const orderRoutes = require('./order')
 
-router.get('/', (req, res)=> res.send('Hello'))
+const reviewsRoutes = require('./reviews')
 
+
+router.get('/', (req, res)=> res.send('Hello'))
 
 /* products routes */
 router.use('/products', productsRoutes);
@@ -19,7 +24,11 @@ router.use('/users', usersRoutes);
 router.use('/filter', filtersRoutes);
 
 /* orders routes*/
-router.use('/orders', orderRoutes)
+
+router.use('/orders',orderRoutes);
+
+/* reviews routes*/
+router.use('/reviews',reviewsRoutes)
 
 /* post images in Cloudinary*/
 router.use('/img', imagesRoutes)
@@ -27,7 +36,7 @@ router.use('/img', imagesRoutes)
 /* stripe checkout routes */
 router.use('/api', stripeRoutes)
 
-/*post images in Cloudinary*/
-router.use('/img', imagesRoutes)
+router.use('/send-notification',notificationsRouter)
+
 
 module.exports = router;

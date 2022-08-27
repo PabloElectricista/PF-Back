@@ -1,4 +1,4 @@
-const Orders = require("../../models/Order");
+const Order = require("../../models/Order");
 
 const updateOrder = async (req, res,) => {
     const { status/* , usersalesId */ } = req.body
