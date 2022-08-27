@@ -11,9 +11,9 @@ const UserSchema = new Schema(
         isAdmin:
             { type: Boolean, default: false },
         isActive:
-            { type: Boolean, default: false },
+            { type: Boolean, default: true },
         isBloked:
-            { type: Boolean },  // baneado ? que podemos poner?
+            { type: Boolean, default: false },  // baneado ? que podemos poner?
         score:
             {
                 stars: { type: Number },
@@ -22,10 +22,12 @@ const UserSchema = new Schema(
         userData:
             { type: Schema.Types.ObjectId, ref: "UserData" },
         sales:
-            [{ type: Schema.Types.ObjectId, ref: "Sale" }],
+            { type: Schema.Types.ObjectId, ref: "Sale" },
         purchases:
             [{ type: Schema.Types.ObjectId, ref: "Order" }],
         orders:
+            [{ type: Schema.Types.ObjectId, ref: "Order" }],
+        favorites:
             [{ type: Schema.Types.ObjectId, ref: "Order" }],
         posts:      //  comments or answers
             [{ type: Schema.Types.ObjectId, ref: "Post" }]
