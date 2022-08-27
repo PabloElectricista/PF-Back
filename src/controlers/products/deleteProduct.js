@@ -7,9 +7,9 @@ const deleteProduct = async (req, res) => {
         var usercustomers = [];
         const productfound = await Product.findById(req.params.id)
         const userorders = await Order.findById(productfound.user).populate(["user", "products"])
-        userorders.forEach(order => {
+        userorders.forEach(async (order) => {
             const findOne = order.products.find(async (product) => product === productfound._id)
-            if(findOne){ 
+            if (findOne) {
                 usercustomers.push(order.user)
                 await order.remove()
             }
