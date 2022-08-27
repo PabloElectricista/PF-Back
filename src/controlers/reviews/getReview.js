@@ -2,7 +2,7 @@ const Review = require("../../models/Review");
 
 const getReview = async (req, res) => {
     try {
-        const review = await Review.findById(req.params.id);
+        const review = await Review.find({product: req.params.id});
         res.json(review);
     } catch (error) {
         console.log(error.message);

@@ -1,21 +1,23 @@
 const mongoose = require('mongoose');
+const {Schema} = require("mongoose");
 
-const ReviewSchema = new mongoose.Schema(
+const ReviewSchema = new Schema(
     {
-        title: 
-        { type: String, required: true, unique: true },
-        text:
-        { type: String, required: true },
+        user:
+            { type: Schema.Types.ObjectId, ref: "User", required: true },
+        userName:
+            { type: String, required: true },
+        product:
+            { type: Schema.Types.ObjectId, ref: "Product", required: true },
         rating: {
-            points: { type: String },
-            range: {
-                min: { type: Number, min: 1 },
-                max: { type: Number, min: 5 }
-            }
+                type: Number,
+                required: true,
+                unique: true,
+                min: 1,
+                max: 5
         },
-        userName: 
-        { type: String, required: true },
-
+        comment:
+            { type: String, required: true },
     },
     { timestamps: true }
 );
