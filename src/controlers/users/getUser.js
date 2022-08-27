@@ -7,13 +7,18 @@ const {
 
 
 const getUser = (verifyTokenAndAdmin, async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id);
-      const { password, ...others } = user._doc;
-      res.status(200).json(others);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+  const { id } = req.params
+  try {
+    const userId = await User.findById(id).populate([
+      'sales',
+      'purchases',
+      'posts',
+    ])
+    if (userId) throw new Error('User not found')
+    res.json(userId)
+  } catch (error) {
+    res.send(error.message)
+  }
+});
 
 module.exports = getUser;
