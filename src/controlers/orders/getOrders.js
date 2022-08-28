@@ -9,6 +9,11 @@ const getOrders = async (req, res, next) => {
         console.log(error);
         res.send({ error: error.message });
     }
+        const allOrden = await Order.find({}).populate('users')
+        return res.json(allOrden)
+      } catch (error) {
+        res.send(error.message)
+      }
 }
 
 module.exports = getOrders;

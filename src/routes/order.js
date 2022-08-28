@@ -7,9 +7,11 @@ const deleteOrder = require('../controlers/orders/deleteOrder');
 const updateOrder = require('../controlers/orders/updateOrder');
 
 
-router.get('/', getOrder);
+router.get('/:id', getOrder);
 
 router.get('/:userid', getOrders);
+
+router.get('/', getOrders);
 
 router.post('/', addOrder);
 
