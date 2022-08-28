@@ -2,7 +2,7 @@ const {createTransport} = require('nodemailer')
 const transportator = require('./configurations')
 
 async function sendEmailAuth(email,username){
-    const transporter=createTransport(transportator)
+    const transporter = createTransport(transportator)
     await transporter.sendMail({
         from:'Deep down in Louisiana close to New Orleans <bgoodecommerce.com>',
         to: email,
@@ -11,7 +11,6 @@ async function sendEmailAuth(email,username){
     },
     (error,info)=>{
         
-
         if(error){
             console.log(error)
         }else{
@@ -19,7 +18,6 @@ async function sendEmailAuth(email,username){
         }
     })
 }
-
 module.exports={sendEmailAuth}
 
 

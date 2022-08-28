@@ -27,11 +27,10 @@ const Users = require('../../models/User')
 async function authMail(req,res){
     try{
         const {_id}=req.body
-        const foundUser=await Users.find({_id});
-        const {username,email}=foundUser
-        console.log(`user: ${username}, email: ${email}`)
+        const foundUser=await Users.findById(_id);
+        //const {username,email}=foundUser
         console.log(`foundUser: ${foundUser}`)
-        const info=await sendEmailAuth(email,username)
+        const info=await sendEmailAuth(foundUser.email,foundUser.username)
         res.status(200).send(info)
     }catch(e){
         res.status(500).send(e)
