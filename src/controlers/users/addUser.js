@@ -8,26 +8,26 @@ const UserData = require('../../models/UserData');
 
 const addUser = (async (req, res) => {
     const newUserdata = new UserData(req.body.userdata)
-    req.body.userData = newUserdata._id
-    const newUsersales = new Sale(new mongoose.Types.ObjectId())
-    req.body.sales = newUsersales._id
-    
+    const newUsersales = new Sale()
     const newUser = new User({
-        ...req.body ,
+        username: req.body.username,
+        email: req.body.email,
         password: CryptoJS.AES.encrypt(
             req.body.password,
             process.env.PASS_SEC
-        ).toString(),
+        ).toString()
     });
-    const saveUser = newUser.save();
-    const saveData = newUserdata.save()
-    const saveSales = newUsersales.save()
 
     try {
-        await Promise.all([saveUser, saveData, saveSales])
-        res.status(201).json(newUser);
+        const userData = await newUserdata.save()
+        const sales = await newUsersales.save()
+        newUser.userData = userData._id;
+        newUser.sales = sales._id;
+        const saveUser = await newUser.save();
+        res.status(201).json(saveUser);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json(err.message);
     }
 });
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {Schema} = require("mongoose");
+const { Schema } = require("mongoose");
 
 const ReviewSchema = new Schema(
     {
@@ -10,11 +10,11 @@ const ReviewSchema = new Schema(
         product:
             { type: Schema.Types.ObjectId, ref: "Product", required: true },
         rating: {
-                type: Number,
-                required: true,
-                unique: true,
-                min: 1,
-                max: 5
+            type: Number,
+            required: true,
+            unique: true,
+            min: 1,
+            max: 5
         },
         comment:
             { type: String, required: true },
