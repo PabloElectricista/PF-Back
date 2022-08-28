@@ -14,7 +14,7 @@ const ReviewSchema = new Schema(
             required: true,
             unique: true,
             min: 1,
-            max: 5
+            max: 5,
                 type: Number,
                 required: true,
                 min: 1,
