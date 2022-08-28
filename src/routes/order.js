@@ -9,11 +9,13 @@ const updateOrder = require('../controlers/orders/updateOrder');
 
 router.get('/:id', getOrder);
 
+router.get('/:userid', getOrders);
+
 router.get('/', getOrders);
 
 router.post('/', addOrder);
 
-router.delete('/:id', deleteOrder);
+router.delete('/:id/seller/:sellerid', deleteOrder);
 
 router.put('/:id', updateOrder);
 
