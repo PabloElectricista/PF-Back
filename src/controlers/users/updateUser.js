@@ -14,11 +14,19 @@ const updateUser = (verifyTokenAndAuthorization, async (req, res) => {
             process.env.PASS_SEC
         ).toString();
     }
-
-    console.log(req.body);
     try {
-        const user = await User.findById(req.params.id).populate({ path: "userData sales purchases orders favorites" })
-
+        var user = await User.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+        )
+        if (!user) user = await User.findById(req.params.id)
+        await UserData.findByIdAndUpdate(
+            user.userData,
+            { $set: req.body },
+            { new: true }
+        )
+        user = await User.findById(req.params.id).populate("userData")
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json(err);
