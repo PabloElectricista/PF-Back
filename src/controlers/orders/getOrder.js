@@ -1,7 +1,6 @@
 const Order = require("../../models/Order");
 
 const getOrder = async (req, res) => {
-    const { userId } = req.params
     try {
         const order = await Order.findOne({ user: req.params.userid }).populate(["user products userseller"])
         res.json(order);
