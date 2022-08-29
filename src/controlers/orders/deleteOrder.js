@@ -1,10 +1,11 @@
-const Order = require("../../models/Order");
+const User = require("../../models/User");
 
 const deleteOrder = async (req, res) => {
     try {
-        // uddateSales(req.params.sellerid)   // próximo paso
-        await Order.findOneAndDelete({ _id: req.params.id });
-        res.send('eliminando la orden con id: ' + req.params.id)
+        const user = await User.findById(req.params.userid).populate({path: "orders"})
+        user.orders = user.orders.filter(order => order._id !== req.params.id)
+        await user.save()
+        res.send(`eliminando la orden ${req.params.id} del usuario ${user.username}`)
     } catch (error) {
         console.log(error.message);
         res.status(500).send('error al eliminar la orden')

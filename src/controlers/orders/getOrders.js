@@ -1,9 +1,10 @@
 const Order = require("../../models/Order");
 
-const getOrders = async (req, res, next) => {
+const getOrders = async (req, res) => {
+
     try {
-        const orders = await Order.find({}).populate({ path: "user products userseller"})
-        console.log(orders);
+        const orders = await Order.find({}).
+            populate({ path: "user products userseller"})
         res.json(orders)
     } catch (error) {
         console.log(error);
