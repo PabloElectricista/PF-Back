@@ -1,16 +1,16 @@
 const Order = require("../../models/Order");
-const User = require("../../models/User");
+// const User = require("../../models/User");
 
 const updateOrder = async (req, res,) => {
     const { status } = req.body
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id,
-            status,
+            req.body,
             {
               new: true,
             }
-          ).populate('usuario') //.populate('products')
+          ).populate({path:'user products userseller'})
 
         //const userseller = await User.findById(updatedOrder.userseller).populate(sales)
 
@@ -19,22 +19,22 @@ const updateOrder = async (req, res,) => {
         switch (status) {
             case 'processing':
                 console.log("processing");
-                // enviar mail order processing (username, email)
+                // enviar mail comprador
                 break;
             case 'completed':
                 console.log("completed");
-                // enviar mail order completed (username, email)
+                // enviar mail a vendedor y comprador
                 // actualizar sales de userseller 
+                // actualizar stock del producto
                 break;
             case 'cancelled':
                 console.log("cancelled");
-                // enviar mail order cancelled (username, email)
+                // enviar mail a vendedor y comprador
                 // actualizar sales de userseller 
-                // actualizar stock de producto
                 break;
             case 'sent':
                 console.log("sent");
-                // enviar mail order sent (username, email)
+                // enviar mail comprador
                 break;
             default:
                 throw new Error('status incorrect')
