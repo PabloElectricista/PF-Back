@@ -6,7 +6,7 @@ const updateOrder = async (req, res,) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id,
-            status,
+            req.body,
             {
               new: true,
             }

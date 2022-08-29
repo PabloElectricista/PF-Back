@@ -4,25 +4,22 @@ const addOrder = require('../controlers/orders/addOrder');
 const getOrder = require('../controlers/orders/getOrder');
 const getOrders = require('../controlers/orders/getOrders');
 const getUserOrders = require('../controlers/orders/getUserOrders');
-const getUsersOrders = require('../controlers/orders/getUsersOrders');
 const deleteOrder = require('../controlers/orders/deleteOrder');
 const deleteUsersOrder = require('../controlers/orders/deleteUsersOrder');
 const updateOrder = require('../controlers/orders/updateOrder');
 
-router.get('/', getOrders);
+router.get('/', getOrders);   //  todas las ordenes -  c/u con los prod, comp y vend
 
-router.get('/users/', getUsersOrders);
+router.get('/user/:userid', getUserOrders);     //  todas las ordenes de un usuarios
 
-router.get('/user/:userid', getUserOrders);
+router.get('/:id', getOrder);   //   una sola orden en especifico
 
-router.get('/:id', getOrder);
+router.post('/', addOrder);    //   nueva orden
 
-router.post('/', addOrder);
+router.delete('/users/:id', deleteUsersOrder);      // se borra la referencia a la cuenta de un usuario
 
-router.delete('/users/:id', deleteUsersOrder);
+router.delete('/:id/user/:userid', deleteOrder);   //  se borra la cuenta de raiz
 
-router.delete('/:id/user/:userid', deleteOrder);
-
-router.put('/:id', updateOrder);
+router.put('/:id', updateOrder);   //  se actualiza una orden
 
 module.exports =  router
