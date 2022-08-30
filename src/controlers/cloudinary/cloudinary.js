@@ -1,14 +1,16 @@
+
 const cloudinary=require('../../lib/cloudinary')
+
 const fs = require('fs-extra')
 
-async function postImgCloudinary(req,res){
-    try{
-        const files=req.files
-        let pathsCldry=[]
-        for(file of files){
-            const {path}=file;
+async function postImgCloudinary(req, res) {
+    try {
+        const files = req.files
+        let pathsCldry = []
+        for (file of files) {
+            const { path } = file;
             console.log(path)
-            const pathCldnry=await cloudinary.v2.uploader.upload(path);
+            const pathCldnry = await cloudinary.v2.uploader.upload(path);
             pathsCldry.push(pathCldnry.url)
             fs.unlink(path)
         }
@@ -16,9 +18,9 @@ async function postImgCloudinary(req,res){
             message: 'Images uploaded successfully',
             data: pathsCldry,
         })
-    }catch(error){
+    } catch (error) {
         res.send({ message: error })
     }
 }
 
-module.exports={postImgCloudinary}
+module.exports = { postImgCloudinary }
