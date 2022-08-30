@@ -1,4 +1,4 @@
-const cloudinary=require('../../../cloudinary')
+const cloudinary=require('../../lib/cloudinary')
 const fs = require('fs-extra')
 
 async function postImgCloudinary(req,res){
