@@ -6,8 +6,8 @@ const UserDataSchema = new Schema(
             { type: String/* , required: true */ },
         lastname:
             { type: String/* , required: true */ },
-        /* phone:
-            { type: Number, required: true }, */
+        phone:
+            { type: Number },
         cuil:
             { type: Number },
         address:
