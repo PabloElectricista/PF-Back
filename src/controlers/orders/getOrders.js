@@ -7,7 +7,6 @@ const getOrders = async (req, res) => {
             populate({ path: "user products userseller"})
         res.json(orders)
     } catch (error) {
-        console.log(error);
         res.send({ error: error.message });
     }
 }
