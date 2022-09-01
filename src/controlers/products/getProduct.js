@@ -2,10 +2,7 @@ const Product = require("../../models/Products");
 
 const getProduct = async (req, res) => {
     try {
-        let product;
-        product = await Product.findById(req.params.id).populate({path:"user"})
-        if(product.user)  product.user.password = ""
-        product = await Product.findById(req.params.id).populate({path:"user"});
+        const product = await Product.findById(req.params.id).populate({path:"user"});
         if(product.user) product.user.password = "";
         res.json(product);
     } catch (error) {
