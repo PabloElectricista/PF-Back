@@ -26,7 +26,7 @@ cada una con los productos, compradores y vendedores
         "user" : "_id de comprador",
         "products": [{
                         "products": "_id de producto",
-                        "quantity": 1,
+                        "quantity": 1
                     }],
         "userseller": "_id de comprador",
         "payment": "mas adelante"
