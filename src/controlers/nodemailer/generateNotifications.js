@@ -33,10 +33,10 @@ async function sendEmailSale(usernameSeller,emailSeller,usernameBuyer,nameProduc
         }
     }) 
 }
-async function sendClaimMail(msg,service){
+async function sendClaimMail(msg,service,email){
     const transporter=createTransport(transportator)
     await transporter.sendMail({
-        from: 'Location unknow',
+        from: 'Location unknow <mnaheavy.com>',
         to: 'bgoodecommerce.com',
         subject: service,
         text: msg
@@ -49,7 +49,7 @@ async function sendClaimMail(msg,service){
         }
     })
 }
-async function autoClaimRes(username,email){
+async function autoClaimRes(username,email,service){
     const transporter=createTransport(transportator)
     await transporter.sendMail({
         from: 'Deep down in Louisiana close to New Orleans <bgoodecommerce.com>',

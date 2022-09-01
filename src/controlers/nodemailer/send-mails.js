@@ -30,11 +30,10 @@ async function saleMail(id){
 async function sendClaim(req,res){
     try{
         const {name,email,subject,message}=req.body
-        const infoClaimMail=await sendClaimMail(message,subject);
-        const infoAutoRes=await autoClaimRes(name,email)
+        await sendClaimMail(message,subject,email);
+        await autoClaimRes(name,email,subject)
         res.status(200).send({
-            infoClaimMail,
-            infoAutoRes
+            message:"Info send!"
         })
     }catch(e){
         res.status(500).send({
