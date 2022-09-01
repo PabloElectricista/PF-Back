@@ -1,10 +1,13 @@
 const router = require('express').Router();
 const getProducts = require('../controlers/products/getProducts');
 const getProduct = require('../controlers/products/getProduct');
+const getBrands = require('../controlers/products/getBrands');
 const addProduct = require('../controlers/products/addProduct');
 const updateProduct = require('../controlers/products/updateProduct');
 const deleteProduct = require('../controlers/products/deleteProduct');
 // const { verifyTokenAndAuthorization} = require("../controlers/users/verifyToken")
+
+router.get('/brands', getBrands)
 
 router.get('/', getProducts)
 
