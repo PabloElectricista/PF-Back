@@ -33,6 +33,39 @@ async function sendEmailSale(usernameSeller,emailSeller,usernameBuyer,nameProduc
         }
     }) 
 }
-module.exports={sendEmailAuth,sendEmailSale}
+async function sendClaimMail(msg,service){
+    const transporter=createTransport(transportator)
+    await transporter.sendMail({
+        from: 'Location unknow',
+        to: 'bgoodecommerce.com',
+        subject: service,
+        text: msg
+    },
+    (error,info)=>{
+        if(error){
+            console.log(error)
+        }else{
+            console.log(info)
+        }
+    })
+}
+async function autoClaimRes(username,email){
+    const transporter=createTransport(transportator)
+    await transporter.sendMail({
+        from: 'Deep down in Louisiana close to New Orleans <bgoodecommerce.com>',
+        to: email,
+        subject: service,
+        text: `Hello ${username}! Your claim will be answered shortly, thank you for informing us of your problem.`
+    },
+    (error,info)=>{
+        if(error){
+            console.log(error)
+        }else{
+            console.log(info)
+        }
+    })
+}
+
+module.exports={sendEmailAuth,sendEmailSale,sendClaimMail,autoClaimRes}
 
 

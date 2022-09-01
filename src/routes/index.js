@@ -6,7 +6,7 @@ const imagesRoutes = require('./images')
 const stripeRoutes = require('./stripe')
 const orderRoutes = require('./order')
 const reviewsRoutes = require('./reviews')
-
+const sendClaimMail=require('./sendClaimMail')
 router.get('/', (req, res)=> res.send('Hello'))  // solo para pruebas luego borrar
 
 
@@ -33,5 +33,6 @@ router.use('/img', imagesRoutes)
 /* stripe checkout routes */
 router.use('/api', stripeRoutes)
 
+router.use('/send-claim',sendClaimMail)
 
 module.exports = router;
