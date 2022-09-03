@@ -2,6 +2,7 @@ const Order = require("../../models/Order");
 const User = require("../../models/User");
 const Products = require("../../models/Products");
 
+const {saleMail}=require('../nodemailer/send-mails')
 const addOrder = async (req, res) => {
     const { products } = req.body;
     try {
@@ -15,6 +16,15 @@ const addOrder = async (req, res) => {
 
         // enviar notificacion al vendedor  (userseller) <-----<
         // actualizar sales del vendedor 
+
+        const userseller = await User.findById(orderSaved.userseller).populate({path: "orders"})
+        if (!userseller) throw new Error("Not Found seller or blocked user"); 
+        // enviar notificacion al vendedor   <-----<
+        await saleMail(nerOrder._id);
+        // actualizar sales del vendedor 
+        if(userseller.orders && userseller.orders.length === 0) userseller.orders = [ orderSaved._id];
+        else userseller.orders = [ ...userseller.orders, orderSaved._id ];
+        await userseller.save();
 
         res.status(201).json(orderSaved);
     } catch (error) {
