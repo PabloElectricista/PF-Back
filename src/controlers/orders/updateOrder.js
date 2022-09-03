@@ -1,5 +1,6 @@
 const Order = require("../../models/Order");
 // const User = require("../../models/User");
+const Products = require("../../models/Products");
 
 const updateOrder = async (req, res,) => {
     const { status } = req.body
@@ -10,7 +11,7 @@ const updateOrder = async (req, res,) => {
             {
               new: true,
             }
-          ).populate({path:'user products userseller'})
+          ).populate({path:'user userseller'})
 
         //const userseller = await User.findById(updatedOrder.userseller).populate(sales)
 
@@ -24,13 +25,12 @@ const updateOrder = async (req, res,) => {
             case 'completed':
                 console.log("completed");
                 // enviar mail a vendedor y comprador
-                // actualizar sales de userseller 
-                // actualizar stock del producto
                 break;
             case 'cancelled':
                 console.log("cancelled");
                 // enviar mail a vendedor y comprador
-                // actualizar sales de userseller 
+                const products = updatedOrder.products
+                products.forEach(product => updeteStock(product.products, product.quantity))
                 break;
             case 'sent':
                 console.log("sent");
@@ -48,3 +48,16 @@ const updateOrder = async (req, res,) => {
 }
 
 module.exports = updateOrder;
+
+function updeteStock(productid, quantity){
+    Products.findById(productid).exec(function(error, product){
+        if (error) return console.log(error);
+        if (product){
+            product.stock += quantity
+            product.save()
+            console.log(product.stock);
+            return
+        }
+        console.log("Product not found");
+    })
+}
