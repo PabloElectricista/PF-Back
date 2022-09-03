@@ -5,6 +5,10 @@ require('dotenv').config();
 const Stripe = require("stripe")
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 
+const stripeCheckout = async (req, res) => {
+    res.send("checkout")
+}
+
 const createPayment = async (id, amount, description) => {
     return await await stripe.paymentIntents.create({
         amount: amount * 100,       // dolar a cents amount
