@@ -1,4 +1,4 @@
-const {sendEmailAuth,sendEmailSale}=require('./generateNotifications')
+const {sendEmailAuth,sendEmailSale,sendClaimMail,autoClaimRes}=require('./generateNotifications')
 const Users = require('../../models/User')
 const Orders = require('../../models/Order')
 const Products=require('../../models/Products')
@@ -27,4 +27,18 @@ async function saleMail(id){
         console.log(e)
     }
 }
-module.exports={authMail,saleMail}
+async function sendClaim(req,res){
+    try{
+        const {name,email,subject,message}=req.body
+        await sendClaimMail(message,subject,email);
+        await autoClaimRes(name,email,subject)
+        res.status(200).send({
+            message:"Info send!"
+        })
+    }catch(e){
+        res.status(500).send({
+            error:e
+        })
+    }
+}
+module.exports={authMail,saleMail,sendClaim}

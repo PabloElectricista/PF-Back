@@ -1,11 +1,15 @@
-//const {createTransport}=require('nodemailer')
+const { createTransport } = require('nodemailer')
+
 const transportator = {
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure:true,
     auth: {
-        user: "a050de2e9b0a90", //.env
-        pass: "9ccf1ebd7386ef" ////.env
+        user: 'bgoodecommerce58@gmail.com',
+        pass: process.env.APP_PASSWORD
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 }
-
-module.exports = transportator
+module.exports = createTransport(transportator)
