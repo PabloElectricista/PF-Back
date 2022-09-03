@@ -2,10 +2,12 @@ const { Schema, model } = require('mongoose');
 
 const UserDataSchema = new Schema(
     {
-        firstame:
-            { type: String/* , required: true */ },
+        firstname:
+            { type: String, unique: false },
         lastname:
-            { type: String/* , required: true */ },
+            { type: String, unique: false },
+        accountid:
+            { type: String, unique: true },
         phone:
             { type: Number },
         cuil:
