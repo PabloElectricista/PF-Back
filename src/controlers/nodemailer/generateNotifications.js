@@ -2,11 +2,11 @@ const { createTransport } = require('nodemailer')
 const transportator = require('./configurations')
 
 async function sendEmailAuth(email,username){
-    const transporter=createTransport(transportator)
-    await transporter.sendMail({
-        from: 'Deep down in Louisiana close to New Orleans <bgoodecommerce.com>',
+    //const transporter=createTransport(transportator)
+    await transportator.sendMail({
+        from: 'bgoodecommerce58@gmail.com',
         to: email,
-        subject: "Website contact form",
+        subject: `WELCOME ${username}!`,
         text: `Welcome to the B. Goode comunity ${username}, thank you for choosing us to help you carry out your business with musical instruments`
     },
     (error,info)=>{
@@ -18,11 +18,11 @@ async function sendEmailAuth(email,username){
     })
 }
 async function sendEmailSale(usernameSeller,emailSeller,usernameBuyer,nameProducts){
-    const transporter=createTransport(transportator)
-    await transporter.sendMail({
-        from: 'Deep down in Louisiana close to New Orleans <bgoodecommerce.com>',
+   // const transporter=createTransport(transportator)
+    await transportator.sendMail({
+        from: 'bgoodecommerce58@gmail.com', 
         to: emailSeller,
-        subject: "Website contact form",
+        subject: "NEW SALE!",
         text: `Hi! ${usernameSeller}, we inform you that ${usernameBuyer} has made a purchase of the following products: ${nameProducts}`
     },
     (error,info)=>{
@@ -34,12 +34,12 @@ async function sendEmailSale(usernameSeller,emailSeller,usernameBuyer,nameProduc
     }) 
 }
 async function sendClaimMail(msg,service,email){
-    const transporter=createTransport(transportator)
-    await transporter.sendMail({
-        from: 'Location unknow <mnaheavy.com>',
-        to: 'bgoodecommerce.com',
+    console.log({msg,service,email})
+    await transportator.sendMail({
+        from: email,
+        to: 'bgoodecommerce58@gmail.com',
         subject: service,
-        text: msg
+        text: `${msg} \n ${email}`
     },
     (error,info)=>{
         if(error){
@@ -50,9 +50,9 @@ async function sendClaimMail(msg,service,email){
     })
 }
 async function autoClaimRes(username,email,service){
-    const transporter=createTransport(transportator)
-    await transporter.sendMail({
-        from: 'Deep down in Louisiana close to New Orleans <bgoodecommerce.com>',
+    //const transporter=createTransport(transportator)
+    await transportator.sendMail({
+        from: 'bgoodecommerce58@gmail.com',
         to: email,
         subject: service,
         text: `Hello ${username}! Your claim will be answered shortly, thank you for informing us of your problem.`
