@@ -6,10 +6,7 @@ const imagesRoutes = require('./images')
 const stripeRoutes = require('./stripe')
 const orderRoutes = require('./order')
 const reviewsRoutes = require('./reviews')
-
 const sendClaimMail=require('./sendClaimMail')
-
-const cartsRoutes = require('./carts')
 
 router.get('/', (req, res)=> res.send('Hello'))  // solo para pruebas luego borrar
 
@@ -23,7 +20,6 @@ router.use('/users', usersRoutes);
 router.use('/filter', filtersRoutes);
 
 /* orders routes*/
-
 router.use('/orders',orderRoutes);
 
 /* reviews routes*/
@@ -35,12 +31,7 @@ router.use('/img', imagesRoutes)
 /* stripe checkout routes */
 router.use('/api', stripeRoutes)
 
-
 /*send claim mail routes*/
 router.use('/send-claim',sendClaimMail)
-
-/* cards routes*/
-router.use('/carts',cartsRoutes)
-
 
 module.exports = router;
