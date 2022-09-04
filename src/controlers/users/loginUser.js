@@ -1,7 +1,6 @@
 const User = require("../../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const {authMail}=require('../nodemailer/send-mails')
 
 const loginUser = ('/login', async (req, res) => {
     const { username, password } = req.body
@@ -26,7 +25,6 @@ const loginUser = ('/login', async (req, res) => {
             process.env.JWT_SEC,
             { expiresIn: "3d" }
         );
-        await authMail(user._id)
         res.status(200).json({accessToken});
     } catch (err) {
         res.status(500).json(err);

@@ -1,22 +1,6 @@
 const { createTransport } = require('nodemailer')
 const transportator = require('./configurations')
 
-async function sendEmailAuth(email,username){
-    //const transporter=createTransport(transportator)
-    await transportator.sendMail({
-        from: 'bgoodecommerce58@gmail.com',
-        to: email,
-        subject: `WELCOME ${username}!`,
-        text: `Welcome to the B. Goode comunity ${username}, thank you for choosing us to help you carry out your business with musical instruments`
-    },
-    (error,info)=>{
-        if(error){
-            console.log(error)
-        }else{
-            console.log(info)
-        }
-    })
-}
 async function sendEmailSale(usernameSeller,emailSeller,usernameBuyer,nameProducts){
    // const transporter=createTransport(transportator)
     await transportator.sendMail({
