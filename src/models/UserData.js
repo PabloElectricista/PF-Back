@@ -8,6 +8,8 @@ const UserDataSchema = new Schema(
             { type: String, unique: false },
         accountid:
             { type: String, unique: true },
+        cusid:
+            { type: String, unique: true },
         phone:
             { type: Number },
         cuil:

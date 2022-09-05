@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../../models/User");
 const UserData = require('../../models/UserData');
-const { createAccount } = require('../stripe/stripe')
+const { createaccount } = require('../stripe/actions/createaccount')
 
 const addUser = (async (req, res) => {
     try {
@@ -17,7 +17,7 @@ const addUser = (async (req, res) => {
             ).toString()
         });
 
-        const id = await createAccount()
+        const id = await createaccount()
         newUserdata.accountid = id
         const userData = await newUserdata.save()
         newUser.userData = userData._id;

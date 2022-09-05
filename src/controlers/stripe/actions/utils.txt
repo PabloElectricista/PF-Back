@@ -1,0 +1,66 @@
+
+const customer = await Users.findById(user, "userData").populate({path: "userData", select: "accountid cusid -_id"})
+        console.log(customer);
+        
+
+
+const orders = [];
+        let j = 0;
+        for (let i = 0; i < productsresult.length; i++) {
+            let amount = productsresult[i].price * productsresult[i].quantity
+            let userseller = `${productsresult[i].userseller}`
+            let products = {
+                products: productsresult[i]._id,
+                quantity: productsresult[i].quantity
+            }
+            if (!orders[j]) {
+                orders.push({
+                    user,
+                    products: [products],
+                    userseller,
+                    payment: id,
+                    amount,
+                    description: { [i + 1]: productsresult[i]._id },
+                    username: productsresult[i].username,
+                    accountid: productsresult[i].accountid
+                })
+            }
+            else if (userseller === orders[j].userseller) {
+                orders[j].products.push(products)
+                orders[j].amount += amount
+                orders[j].description[i + 1] = productsresult[i]._id
+            }
+            else {
+                orders.push({
+                    user,
+                    products: [products],
+                    userseller,
+                    payment: id,
+                    amount,
+                    description: { [i + 1]: productsresult[i]._id },
+                    username: productsresult[i].username,
+                    accountid: productsresult[i].accountid
+                })
+                j++;
+            }
+        }
+        const payments = orders.map(async order => {
+            const amount = Math.floor(order.amount * 100)
+            const { status } = await createPayment(paymentMethod.id, amount, order.description)
+            return { user: [order.username], status, }
+        })
+        
+        const paymentsresult = await Promise.all(payments);
+        const transfers = paymentsresult.map(async payment => {
+            console.log(payment.amount);
+            let amount = Math.floor(payment.amount * 98.8)
+            console.log(payment.accountid);
+            console.log(payment.description);
+            if (payment.status === "'succeeded") {
+                let res = await createtransfer(amount, payment.accountid, payment.description)
+                return { user: payment.user }
+            }
+        })
+
+        const transfersresult = await Promise.all(transfers);
+        console.log(transfersresult);
