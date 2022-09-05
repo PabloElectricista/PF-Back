@@ -1,9 +1,10 @@
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 const User = require("../../models/User");
 const UserData = require('../../models/UserData');
-const { createaccount } = require('../stripe/actions/createaccount')
 
 const addUser = (async (req, res) => {
     try {
@@ -17,11 +18,18 @@ const addUser = (async (req, res) => {
             ).toString()
         });
 
-        const id = await createaccount()
+        var {id} = await stripe.accounts.create({
+            type: 'standard',
+          })
         newUserdata.accountid = id
+        var {id} = await stripe.customers.create({
+            description: 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
+          })
+        newUserdata.cusid = id
         const userData = await newUserdata.save()
         newUser.userData = userData._id;
         const saveUser = await newUser.save();
+        saveUser.userData = userData
         res.status(201).json(saveUser);
     } catch (err) {
         console.log(err);
