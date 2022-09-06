@@ -20,7 +20,7 @@ const stripeCheckout = async (req, res) => {
             return {
                 user: customer,
                 products: [item],
-                amount: price * item.quantity * 100,
+                amount: /* price * item.quantity * */ 100,
                 userseller: user._id,
                 username: user.username,
                 accountid: user.userData.accountid,

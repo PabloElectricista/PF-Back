@@ -32,4 +32,4 @@ async function sendClaim(req, res) {
         })
     }
 }
-module.exports = { authMail, saleMail, sendClaim }
+module.exports = { /* authMail, */ saleMail, sendClaim }

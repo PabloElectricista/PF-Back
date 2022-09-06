@@ -50,6 +50,6 @@ async function autoClaimRes(username,email,service){
     })
 }
 
-module.exports={sendEmailAuth,sendEmailSale,sendClaimMail,autoClaimRes}
+module.exports={/* sendEmailAuth, */sendEmailSale,sendClaimMail,autoClaimRes}
 
 
