@@ -1,6 +1,5 @@
 const Product = require("../../models/Products");
 const User = require("../../models/User");
-const Sale = require("../../models/Sale");
 
 const addProduct = async (req, res) => {
     try {
