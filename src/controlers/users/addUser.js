@@ -19,7 +19,7 @@ const addUser = (async (req, res) => {
         });
 
         var {id} = await stripe.accounts.create({
-            type: 'standard',
+            type: 'express',
           })
         newUserdata.accountid = id
         var {id} = await stripe.customers.create({
