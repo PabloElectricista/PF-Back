@@ -6,11 +6,7 @@ const addProduct = async (req, res) => {
     try {
         const newProduct = new Product(req.body);
         const productSaved = await newProduct.save();
-
-        const user = User.findById(req.body.user)
-        const usersales = await Sale.findById(user.sales)
-        usersales.onsales.concat(newProduct._id)
-        await usersales.save()
+        productSaved.user = User.findById(req.body.user)
 
         res.status(201).json(productSaved);
     } catch (error) {
