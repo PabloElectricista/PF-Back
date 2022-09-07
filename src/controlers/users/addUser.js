@@ -4,43 +4,34 @@ const User = require("../../models/User");
 const { createAccount } = require('../stripe/stripe')
 
 const addUser = (async (req, res) => {
-    const { nickname, name, email, picture, phone, address } = req.body
+    const { nickname, name, email, picture, address } = req.body
     try {
-      const isExistUser = await User.findOne({ email }).populate([
+      const isExistUser = await User.findOne({ email: email }).populate([
         'sales',
         'purchases',
         'orders',
         'favorites',
         'posts'
       ])
-  
-      if (isExistUser) return res.json([isExistUser])
-  
-      // let isAdmin = false
-      // if (email === 'mariana.stocco@outlook.com') isAdmin = true
-  
+      if (isExistUser) return res.status(201).json(isExistUser)
       const newUser = new User({
         nickname,
         name,
         email,
         picture,
-        phone,
-        address,
-        isAdmin,
+        address
       })
       await newUser.save()
-  
-      const user = await User.find({ email }).populate([
-        'sales',
-        'purchases',
-        'orders',
-        'favorites',
-        'posts'
-      ])
-  
-      res.json([user])
+      // const user = await User.find({ email: email }).populate([
+      //   'sales',
+      //   'purchases',
+      //   'orders',
+      //   'favorites',
+      //   'posts'
+      // ])
+      res.json(newUser)
     } catch (error) {
-      res.status(404).send(error.message)
+      res.send(error.message)
     }
   })
   
