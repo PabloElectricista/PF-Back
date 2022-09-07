@@ -1,23 +1,49 @@
-const User = require("../../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const User = require("../../models/User");
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+
 
 const addUser = (async (req, res) => {
-    const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: CryptoJS.AES.encrypt(
-        req.body.password,
-        process.env.PASS_SEC
-      ).toString(),
-    });
-  
+    const { email } = req.body
     try {
-      const savedUser = await newUser.save();
-      res.status(201).json(savedUser);
-    } catch (err) {
-      res.status(500).json(err);
+        const isExistUser = await User.findOne({ email }).populate([
+            'sales',
+            'purchases',
+            'orders',
+            'favorites',
+            'posts'
+        ])
+
+        if (isExistUser) return res.json([isExistUser])
+
+        // let isAdmin = false
+        // if (email === 'mariana.stocco@outlook.com') isAdmin = true
+
+        const newUser = new User(req.body)
+        var { id } = await stripe.accounts.create({
+            type: 'express',
+        })
+        newUser.accountid = id
+        var { id } = await stripe.customers.create({
+            description: 'My Test Customer',
+        })
+        newUser.cusid = id
+        await newUser.save()
+
+        const user = await User.find({ email }).populate([
+            'sales',
+            'purchases',
+            'orders',
+            'favorites',
+            'posts'
+        ])
+
+        res.json([user])
+    } catch (error) {
+        res.status(404).send(error.message)
     }
-  });
+});
 
 module.exports = addUser;
