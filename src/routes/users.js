@@ -8,14 +8,14 @@ const loginUser = require('../controlers/users/loginUser');
 
 router.get('/', getUsers)
 
-router.get('/:id', getUser)
+router.get('/:email', getUser)
 
 router.post('/', addUser)
 
 router.post('/login', loginUser)
 
-router.put('/:id', updateUser)
+router.put('/:email', updateUser)
 
-router.delete('/:id', deleteUser)
+router.delete('/:email', deleteUser)
 
 module.exports =  router
