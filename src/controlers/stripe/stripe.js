@@ -10,9 +10,9 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const stripeCheckout = async (req, res) => {
     try {
         const { paymentMethodid, customer, products } = req.body;
-
+        console.log("paymentMethodid: " + paymentMethodid);
         const productsdetails = products.map(async item => {
-            let { price, user } = await Product.findById(item.products, "price")
+            let { user } = await Product.findById(item.id, "price")
                 .populate({
                     path: "user", select: "username userData",
                     populate: { path: "userData", select: "accountid cusid" }
@@ -20,7 +20,7 @@ const stripeCheckout = async (req, res) => {
             return {
                 user: customer,
                 products: [item],
-                amount: /* price * item.quantity * */ 100,
+                amount: item.price * item.quantity ,
                 userseller: user._id,
                 username: user.username,
                 accountid: user.userData.accountid,
@@ -73,7 +73,8 @@ const stripeCheckout = async (req, res) => {
             const orders = await Promise.all(ordersresult)
             return res.json({ paymentstatus: payment.status, ...orders })
         }
-        else res.json({ status: payment.status })
+        else return res.json({ status: payment.status })
+        // res.json("ok")
     } catch (error) {
         res.json({ error: error.message })
     }
