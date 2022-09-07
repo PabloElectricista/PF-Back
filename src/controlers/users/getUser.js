@@ -6,9 +6,10 @@ const {
 } = require("./verifyToken");
 
 const getUser = (verifyTokenAndAdmin, async (req, res) => {
+    // const {email} = req.query
   try {
-      const user = await User.findById(req.params.id)
-          .populate({ path: "userData sales purchases orders favorites" });   
+      const user = await User.findOne({email : req.params.email})
+          .populate({ path: "sales purchases orders favorites" });  
       const { password, ...others } = user._doc;
       res.status(200).json(others);
   } catch (err) {

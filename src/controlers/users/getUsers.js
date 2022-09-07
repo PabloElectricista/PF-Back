@@ -8,7 +8,7 @@ const {
 const getUsers = (verifyTokenAndAdmin, async (req, res) => {
     try {
         const users = await User.find().
-            populate({ path: "userData sales purchases orders favorites" }) 
+            populate({ path: "sales purchases orders favorites" }) 
         for (const user of users) {
             user.password = ""
         }
