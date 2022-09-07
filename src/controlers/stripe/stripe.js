@@ -1,5 +1,4 @@
 require('dotenv').config();
-const createPayment = require('./actions/createPayment')
 const Product = require("../../models/Products");
 const Users = require("../../models/User");
 const neworders = require('./actions/neworders')
@@ -10,7 +9,8 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const stripeCheckout = async (req, res) => {
     try {
         const { paymentMethodid, customer, products } = req.body;
-        console.log("customer: " + customer);
+        console.log("customer: " + customer)
+        
         const productsdetails = products.map(async item => {
             let { user } = await Product.findById(item.id, "price")
                 .populate({
@@ -46,9 +46,16 @@ const stripeCheckout = async (req, res) => {
         const paymentMethodsresult = await stripe.paymentMethods.attach(
             paymentMethodid,
             { customer: cusid }
-        )
-        const description = "BGoode product/s purchased"
-        const payment = await createPayment(paymentMethodsresult.id, totalamount, description, cusid)
+            )
+            const description = "BGoode product/s purchased"
+            const payment = await stripe.paymentIntents.create({
+                amount: Math.floor(totalamount * 100),      
+                currency: "usd",
+                payment_method: paymentMethodsresult.id,
+                description,
+                confirm: true,
+                customer: cusid
+            })
         if (payment.status === "succeeded") {
             const ordersresult = users.map(async user => {
                 const transferresult = await stripe.transfers.create({
