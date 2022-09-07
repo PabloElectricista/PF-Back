@@ -9,8 +9,6 @@ const addUser = (async (req, res) => {
     const { email } = req.body
     try {
         const isExistUser = await User.findOne({ email }).populate([
-            'sales',
-            'purchases',
             'orders',
             'favorites',
             'posts'
@@ -33,11 +31,8 @@ const addUser = (async (req, res) => {
         await newUser.save()
 
         const user = await User.find({ email }).populate([
-            'sales',
-            'purchases',
             'orders',
-            'favorites',
-            'posts'
+            'favorites'
         ])
 
         res.json([user])

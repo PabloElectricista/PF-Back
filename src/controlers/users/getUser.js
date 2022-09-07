@@ -8,7 +8,7 @@ const {
 const getUser = (verifyTokenAndAdmin, async (req, res) => {
     try {
         const user = await User.findOne({ email: req.params.email })
-            .populate({ path: "sales purchases orders favorites" });
+            .populate({ path: "orders favorites" });
         if (!user) return res.send("User not found")
         const { password, ...others } = user._doc;
         res.status(200).json(others);
