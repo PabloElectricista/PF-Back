@@ -62,17 +62,10 @@ const UserSchema = new Schema(
         },
         products:
             [{ type: Schema.Types.ObjectId, ref: "Products" }],
-        sales:
-            { type: Schema.Types.ObjectId, ref: "Sale" },
-
-        purchases:
-            [{ type: Schema.Types.ObjectId, ref: "Order" }],
         orders:
             [{ type: Schema.Types.ObjectId, ref: "Order" }],
         favorites:
-            [{ type: Schema.Types.ObjectId, ref: "Order" }],
-        posts:      //  comments or answers
-            [{ type: Schema.Types.ObjectId, ref: "Post" }]
+            [{ type: Schema.Types.ObjectId, ref: "Order" }]
     },
     { timestamps: true }
 );
