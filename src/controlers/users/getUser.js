@@ -1,7 +1,7 @@
 const User = require("../../models/User");
 const {
-    verifyToken,
-    verifyTokenAndAuthorization,
+    /* verifyToken,
+    verifyTokenAndAuthorization, */
     verifyTokenAndAdmin,
 } = require("./verifyToken");
 
