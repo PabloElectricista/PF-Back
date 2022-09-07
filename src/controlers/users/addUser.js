@@ -6,12 +6,11 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 
 const addUser = (async (req, res) => {
-    const { email } = req.body
+    const { email, nickname, username } = req.body
     try {
         const isExistUser = await User.findOne({ email }).populate([
             'orders',
-            'favorites',
-            'posts'
+            'favorites'
         ])
 
         if (isExistUser) return res.json([isExistUser])
@@ -19,7 +18,11 @@ const addUser = (async (req, res) => {
         // let isAdmin = false
         // if (email === 'mariana.stocco@outlook.com') isAdmin = true
 
-        const newUser = new User(req.body)
+        const newUser = new User({
+            ...req.body,
+            username: username ? username : nickname,
+            nickname: username ? username : nickname
+        })
         var { id } = await stripe.accounts.create({
             type: 'express',
         })
