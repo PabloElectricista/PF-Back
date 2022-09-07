@@ -15,8 +15,8 @@ const updateUser = (verifyTokenAndAuthorization, async (req, res) => {
         ).toString();
     }
     try {
-        var user = await User.findByIdAndUpdate(
-            req.params.id,
+        var user = await User.findOneAndUpdate(
+            { email: req.params.email },
             { $set: req.body },
             { new: true }
         )
@@ -26,7 +26,6 @@ const updateUser = (verifyTokenAndAuthorization, async (req, res) => {
             { $set: req.body },
             { new: true }
         )
-        user = await User.findById(req.params.id).populate("userData")
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json(err);

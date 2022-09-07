@@ -2,12 +2,53 @@ const { Schema, model } = require('mongoose');
 
 const UserSchema = new Schema(
     {
-        username:
+        nickname:
             { type: String, required: true, unique: true },
         email:
             { type: String, required: true, unique: true },
+        name: {
+            type: String,
+        },
+        lastname: {
+            type: String,
+        },
+        birthday: {
+            type: String,
+            default: '',
+        },
+        dni: {
+            type: String,
+            default: '',
+        },
+        country: {
+            type: String,
+            default: '',
+        },
         password:
-            { type: String, required: true },
+            { type: String },
+        picture: {
+            type: String
+        },
+        phone: {
+            type: String,
+            default: '',
+        },
+        address: {
+            type: String,
+            default: '',
+        },
+        ciudad: {
+            type: String,
+            default: '',
+        },
+        postal: {
+            type: String,
+            default: '',
+        },
+        accountid:
+            { type: String },
+        cusid:
+            { type: String },
         isAdmin:
             { type: Boolean, default: false },
         isActive:
@@ -15,15 +56,15 @@ const UserSchema = new Schema(
         isBloked:
             { type: Boolean, default: false },  // baneado ? razon? por tiempo?
         score:
-            {
-                stars: { type: Number, default: 0 },
-                reviews: { type: Number, default: 0 },
-            },
-        userData:
-            { type: Schema.Types.ObjectId, ref: "UserData" },
+        {
+            stars: { type: Number, default: 0 },
+            reviews: { type: Number, default: 0 },
+        },
+        products:
+            [{ type: Schema.Types.ObjectId, ref: "Products" }],
         sales:
             { type: Schema.Types.ObjectId, ref: "Sale" },
-        
+
         purchases:
             [{ type: Schema.Types.ObjectId, ref: "Order" }],
         orders:
@@ -31,7 +72,7 @@ const UserSchema = new Schema(
         favorites:
             [{ type: Schema.Types.ObjectId, ref: "Order" }],
         posts:      //  comments or answers
-            [{ type: Schema.Types.ObjectId, ref: "Post" }] 
+            [{ type: Schema.Types.ObjectId, ref: "Post" }]
     },
     { timestamps: true }
 );
