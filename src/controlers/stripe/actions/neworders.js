@@ -6,7 +6,7 @@ const neworders = async (order) => {
     const { products } = order;
     try {
         products.forEach(product => {
-            updeteStock(product.id, product.quantity)
+            updeteStock(product.products, product.quantity)
         });
         const nerOrder = new Order(order);
         const ordersaved = await nerOrder.save();
