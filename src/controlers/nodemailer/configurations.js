@@ -6,7 +6,7 @@ const transportator = {
     secure:true,
     auth: {
         user: 'bgoodecommerce58@gmail.com',
-        pass: process.env.APP_PASSWORD
+        pass: 'kmssuyjfkigccnuy'
     },
     tls: {
         rejectUnauthorized: false
