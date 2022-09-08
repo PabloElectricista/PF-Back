@@ -5,7 +5,6 @@ const getReview = async (req, res) => {
         const review = await Review.find({product: req.params.id});
         res.json(review);
     } catch (error) {
-        console.log(error.message);
         res.status(500).send('error al buscar el review')
     }
 }

@@ -5,7 +5,6 @@ const getUserOrders = async (req, res) => {
         const userorders = await User.findById(req.params.userid).populate({ path: "orders"})
         res.json(userorders)
     } catch (error) {
-        console.log(error);
         res.send({ error: error.message });
     }
 }
