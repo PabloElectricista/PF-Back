@@ -5,13 +5,10 @@ const deleteUsersOrder = async (req, res) => {
     try {
         const orderfound = await Order.findByIdAndDelete(req.params.id)
         if(!orderfound) throw new Error("order not found")
-        const user = await deleteorder("user", orderfound)
-        const userseller = await deleteorder("userseller", orderfound)
-        // notificar user 
-        // notificar userseller 
+        await deleteorder("user", orderfound)
+        await deleteorder("userseller", orderfound)
         res.send(`eliminando la orden ${req.params.id}`)
     } catch (error) {
-        console.log(error.message);
         res.status(500).send('error al eliminar la orden')
     }
 }

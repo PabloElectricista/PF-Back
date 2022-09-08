@@ -9,10 +9,9 @@ const createtransfer = (amount, account, description) => {
         description
     })
         .then((res) => {
-            console.log(res)
             return res
         })
-        .catch(error => console.error(error.message));
+        .catch(error => error.message);
 }
 
 module.exports = createtransfer;
