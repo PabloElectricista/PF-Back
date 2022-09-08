@@ -9,16 +9,16 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const stripeCheckout = async (req, res) => {
     try {
         const { paymentMethodid, customer, products } = req.body;
-        
         const productsdetails = products.map(async item => {
             let { user } = await Product.findById(item.id, "price")
                 .populate({
-                    path: "user", select: "accountid cusid" 
+                    path: "user", select: "accountid cusid"
                 })
+
             return {
                 user: customer,
                 products: [item],
-                amount: item.price * item.quantity ,
+                amount: item.price * item.quantity,
                 userseller: user._id,
                 nickname: user.nickname,
                 accountid: user.accountid,
@@ -45,16 +45,16 @@ const stripeCheckout = async (req, res) => {
         const paymentMethodsresult = await stripe.paymentMethods.attach(
             paymentMethodid,
             { customer: cusid }
-            )
-            const description = "BGoode product/s purchased"
-            const payment = await stripe.paymentIntents.create({
-                amount: Math.floor(totalamount * 100),      
-                currency: "usd",
-                payment_method: paymentMethodsresult.id,
-                description,
-                confirm: true,
-                customer: cusid
-            })
+        )
+        const description = "BGoode product/s purchased"
+        const payment = await stripe.paymentIntents.create({
+            amount: Math.floor(totalamount * 100),
+            currency: "usd",
+            payment_method: paymentMethodsresult.id,
+            description,
+            confirm: true,
+            customer: cusid
+        })
         if (payment.status === "succeeded") {
             const ordersresult = users.map(async user => {
                 const transferresult = await stripe.transfers.create({
@@ -65,7 +65,7 @@ const stripeCheckout = async (req, res) => {
                 })
                 let order = {
                     user: user.user,
-                    products: user.products,
+                    products: user.products.map(p => { return { products: p.id, quantity: p.quantity } }),
                     userseller: user.userseller,
                     payment: user.payment
                 }
