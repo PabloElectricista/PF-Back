@@ -1,6 +1,6 @@
 const Product = require("../../models/Products");
 const Order = require("../../models/Order");
-const Sale = require("../../models/Sale");
+const User = require("../../models/User");
 
 const deleteProduct = async (req, res) => {
     try {
@@ -20,9 +20,9 @@ const deleteProduct = async (req, res) => {
             notificar/los baja de orden por cancelacion de producto
         })
         */
-        const usersales = await Sale.findById(productfound.user)
-        usersales.onsales = usersales.onsales.filter(product => product !== productfound._id)
-        await usersales.save()
+        const user = await User.findById(productfound.user)
+        user.products = user.products.filter(product => product !== productfound._id)
+        await user.save()
 
         res.send('eliminando el producto ' + productfound.name)
     } catch (error) {

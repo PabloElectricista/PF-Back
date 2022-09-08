@@ -1,39 +1,46 @@
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-
+const User = require("../../models/User");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
-const User = require("../../models/User");
-const UserData = require('../../models/UserData');
+
 
 const addUser = (async (req, res) => {
+    const { email, nickname, username } = req.body
     try {
-        const newUserdata = new UserData(req.body.userdata)
-        const newUser = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: CryptoJS.AES.encrypt(
-                req.body.password,
-                process.env.PASS_SEC
-            ).toString()
-        });
+        const isExistUser = await User.findOne({ email }).populate([
+            'orders',
+            'favorites'
+        ])
 
-        var {id} = await stripe.accounts.create({
-            type: 'standard',
-          })
-        newUserdata.accountid = id
-        var {id} = await stripe.customers.create({
-            description: 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
-          })
-        newUserdata.cusid = id
-        const userData = await newUserdata.save()
-        newUser.userData = userData._id;
-        const saveUser = await newUser.save();
-        saveUser.userData = userData
-        res.status(201).json(saveUser);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json(err.message);
+        if (isExistUser) return res.json([isExistUser])
+
+        // let isAdmin = false
+        // if (email === 'mariana.stocco@outlook.com') isAdmin = true
+
+        const newUser = new User({
+            ...req.body,
+            username: username ? username : nickname,
+            nickname: username ? username : nickname
+        })
+        var { id } = await stripe.accounts.create({
+            type: 'express',
+        })
+        newUser.accountid = id
+        var { id } = await stripe.customers.create({
+            description: 'My Test Customer',
+        })
+        newUser.cusid = id
+        await newUser.save()
+
+        const user = await User.find({ email }).populate([
+            'orders',
+            'favorites'
+        ])
+
+        res.json([user])
+    } catch (error) {
+        res.status(404).send(error.message)
     }
 });
 
