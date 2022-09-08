@@ -13,7 +13,7 @@ const addUser = (async (req, res) => {
             'favorites'
         ])
 
-        if (isExistUser) return res.json([isExistUser])
+        if (isExistUser) return res.send("El usuario ya existe")
 
         // let isAdmin = false
         // if (email === 'mariana.stocco@outlook.com') isAdmin = true
