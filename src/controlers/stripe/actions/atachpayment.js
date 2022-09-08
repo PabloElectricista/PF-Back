@@ -6,25 +6,8 @@ const atachpayment = (paymentMethodid, customer) => {
         paymentMethodid,
         customer
     )
-        .then(res => {
-            console.log(res);
-            return res
-        })
-        .catch(err => console.error(err))
+        .then(res => res)
+        .catch(err => err.message)
 }
 
 module.exports = atachpayment
-
-/* stripe.paymentMethods.create({
-    type: 'card',
-    card: {
-        number: '4242424242424242',
-        exp_month: 10,
-        exp_year: 2024,
-        cvc: '214',
-    },
-})
-    .then(res => {
-        
-    })
-    .catch(err => console.log(err)); */

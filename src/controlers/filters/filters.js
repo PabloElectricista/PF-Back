@@ -12,15 +12,13 @@ async function filterProducts(req,res){
                 }
             }else{
                 condition[prop]=new RegExp(req.query[prop],"i")
-
             }
         }
         const foundProducts=await Products.find(condition)
         res.send(foundProducts)
-        
     }catch(error){
-        console.log(error);
         res.status(404).send({ error: error.message });
     }
 }
+
 module.exports={filterProducts}

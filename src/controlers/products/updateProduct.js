@@ -5,13 +5,10 @@ const updateProduct = async (req, res,) => {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
             req.body,
-            {
-                new: true,
-            }
+            { new: true }
         );
         res.status(204).json(updatedProduct);
     } catch (error) {
-        console.log(error);
         res.status(500).send('error al actualizar el producto')
     }
 }

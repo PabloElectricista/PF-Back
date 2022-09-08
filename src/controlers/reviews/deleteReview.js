@@ -5,7 +5,6 @@ const deleteReview = async (req, res) => {
         await Review.findOneAndDelete({ _id: req.params.id });
         res.send('eliminando el review con id: ' + req.params.id)
     } catch (error) {
-        console.log(error.message);
         res.status(500).send('error al eliminar el review')
     }
 }
