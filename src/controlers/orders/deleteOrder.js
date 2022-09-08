@@ -7,7 +7,6 @@ const deleteOrder = async (req, res) => {
         await user.save()
         res.send(`eliminando la orden ${req.params.id} del usuario ${user.username}`)
     } catch (error) {
-        console.log(error.message);
         res.status(500).send('error al eliminar la orden')
     }
 }

@@ -9,7 +9,6 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const stripeCheckout = async (req, res) => {
     try {
         const { paymentMethodid, customer, products } = req.body;
-        console.log("customer: " + customer)
         
         const productsdetails = products.map(async item => {
             let { user } = await Product.findById(item.id, "price")
@@ -80,7 +79,6 @@ const stripeCheckout = async (req, res) => {
             return res.json({ paymentstatus: payment.status, ...orders })
         }
         else return res.json({ status: payment.status })
-        // res.json("ok")
     } catch (error) {
         res.json({ error: error.message })
     }

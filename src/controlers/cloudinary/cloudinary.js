@@ -1,6 +1,5 @@
 
 const cloudinary=require('../../lib/cloudinary')
-
 const fs = require('fs-extra')
 
 async function postImgCloudinary(req, res) {
@@ -9,7 +8,6 @@ async function postImgCloudinary(req, res) {
         let pathsCldry = []
         for (file of files) {
             const { path } = file;
-            console.log(path)
             const pathCldnry = await cloudinary.v2.uploader.upload(path);
             pathsCldry.push(pathCldnry.url)
             fs.unlink(path)
